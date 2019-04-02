@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: site-front
+  namespace: dev
+  labels:
+    role: frontend
+spec:
+  containers:
+  - name: frontend
+    image: nginx
+    ports: 
+      - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pod-front
+  namespace: dev
+  labels:
+    role: frontend-service
+spec:
+  selector:
+    role: frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
