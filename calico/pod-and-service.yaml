@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dev-pod
+  namespace: dev
+  labels:
+    role: dev
+spec:
+  containers:
+  - name: dev
+    image: nginx
+    ports: 
+      - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev-service
+  namespace: dev
+  labels:
+    role: dev-service
+spec:
+  selector:
+    role: dev
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sit-pod
+  namespace: sit
+  labels:
+    role: sit
+spec:
+  containers:
+  - name: sit
+    image: nginx
+    ports: 
+      - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sit-service
+  namespace: sit
+  labels:
+    role: sit-service
+spec:
+  selector:
+    role: sit
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
